@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tecno-Mapa Educativo: Mejorando la Comprensión Lectora</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: tex
+        }
+
+        .header .subtitle {
+            color: #666;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .problem-badge {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: 0 8px 16px rgba(255,107,107,0.3);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .nav-button {
+            background: rgba(255, 255, 255, 0.9);
+            color: #2c3e50;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+            background: white;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            font-size: 2rem;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .data-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 25px 0;
+        }
+
+        .chart-container {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+            border: 2px solid #e9ecef;
+        }
+
+        .chart-title {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .progress-bar {
+            background: #e9ecef;
+            border-radius: 10px;
+            height: 20px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-fill.low { background: linear-gradient(45deg, #ff6b6b, #ee5a24); }
+        .progress-fill.medium { background: linear-gradient(45deg, #ffa726, #ff9800); }
+        .progress-fill.high { background: linear-gradient(45deg, #66bb6a, #4caf50); }
+
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .resource-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 20px;
+            padding: 30px;
+            border: 2px solid #dee2e6;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .resource-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border-color: #667eea;
+        }
+
+        .resource-card h3 {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .resource-badge {
+            display: inline-block;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .resource-link {
+            display: inline-block;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .resource-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(102,126,234,0.3);
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(102,126,234,0.3);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .conclusions {
+            background: linear-gradient(135deg, #e8f5e8, #f0f8f0);
+            border-left: 5px solid #4caf50;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .nav {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .section {
+                padding: 25px;
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header fade-in">
+            <h1> Tecno-Mapa Educativo</h1>
+            <p class="subtitle">Análisis de Datos para la Identificación y Provisión de Recursos TIC</p>
+            <div class="problem-badge">
+                Problema Identificado: Dificultades en Comprensión Lectora - 3° Primaria
+            </div>
+        </header>
+
+        <nav class="nav">
+            <a href="#" class="nav-button" onclick="showSection('datos')">📊 Análisis de Datos</a>
+            <a href="#" class="nav-button" onclick="showSection('recursos')">🛠️ Recursos TIC</a>
+            <a href="#" class="nav-button" onclick="showSection('conclusiones')">💡 Conclusiones</a>
+        </nav>
+
+        <section id="datos" class="section fade-in">
+            <h2>📊 Análisis de Datos Educativos</h2>
+            
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-number">120</div>
+                    <div>Estudiantes Evaluados</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">65%</div>
+                    <div>Nivel Bajo en Comprensión</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">4.2</div>
+                    <div>Promedio General</div>
+                </div>
+            </div>
+
+            <div class="data-grid">
+                <div class="chart-container">
+                    <div class="chart-title">📈 Niveles de Comprensión Lectora</div>
+                    <div style="margin: 20px 0;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                            <span>Nivel Bajo (0-5)</span>
+                            <span><strong>65%</strong></span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill low" style="width: 65%;"></div>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                            <span>Nivel Medio (6-7)</span>
+                            <span><strong>25%</strong></span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill medium" style="width: 25%;"></div>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                            <span>Nivel Alto (8-10)</span>
+                            <span><strong>10%</strong></span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill high" style="width: 10%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <div class="chart-title">🎯 Áreas de Mayor Dificultad</div>
+                    <div style="text-align: left; margin: 20px 0;">
+                        <div style="margin-bottom: 15px;">
+                            <strong>1. Inferencias (78% dificultad)</strong>
+                            <div class="progress-bar" style="margin-top: 5px;">
+                                <div class="progress-fill low" style="width: 78%;"></div>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <strong>2. Análisis crítico (72% dificultad)</strong>
+                            <div class="progress-bar" style="margin-top: 5px;">
+                                <div class="progress-fill low" style="width: 72%;"></div>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <strong>3. Vocabulario contextual (68% dificultad)</strong>
+                            <div class="progress-bar" style="margin-top: 5px;">
+                                <div class="progress-fill medium" style="width: 68%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="conclusions">
+                <h3>📋 Hallazgos Principales</h3>
+                <ul style="margin-top: 15px; line-height: 1.8;">
+                    <li><strong>Déficit significativo:</strong> 65% de los estudiantes presenta dificultades en comprensión lectora</li>
+                    <li><strong>Área crítica:</strong> Las inferencias son la habilidad más afectada (78% de dificultad)</li>
+                    <li><strong>Brecha educativa:</strong> Solo 10% alcanza niveles satisfactorios de comprensión</li>
+                    <li><strong>Necesidad urgente:</strong> Implementar estrategias diferenciadas e interactivas</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="recursos" class="section hidden">
+            <h2>🛠️ Recursos TIC Seleccionados</h2>
+            <p style="margin-bottom: 30px; font-size: 1.1rem; color: #666;">
+                Basándose en el análisis de datos, hemos seleccionado estas herramientas tecnológicas específicas para abordar las dificultades identificadas:
+            </p>
+
+            <div class="resource-grid">
+                <div class="resource-card">
+                    <div class="resource-badge">Plataforma Interactiva</div>
+                    <h3>📚 Comprension.org</h3>
+                    <p><strong>Justificación Pedagógica:</strong> Ofrece ejercicios adaptativos de inferencias y análisis crítico, abordando directamente las áreas de mayor dificultad identificadas.</p>
+                    <p><strong>Características:</strong></p>
+                    <ul style="margin: 15px 0; line-height: 1.6;">
+                        <li>✅ Ejercicios graduados por nivel</li>
+                        <li>✅ Retroalimentación inmediata</li>
+                        <li>✅ Seguimiento de progreso individual</li>
+                        <li>✅ Gamificación integrada</li>
+                    </ul>
+                    <p><strong>Nivel:</strong> 3° Primaria | <strong>Costo:</strong> Gratuito</p>
+                    <a href="#" class="resource-link">🔗 Acceder al Recurso</a>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-badge">Aplicación Móvil</div>
+                    <h3>🎮 LectoJuegos</h3>
+                    <p><strong>Justificación Pedagógica:</strong> Gamifica el aprendizaje del vocabulario contextual mediante mini-juegos interactivos, aumentando la motivación estudiantil.</p>
+                    <p><strong>Características:</strong></p>
+                    <ul style="margin: 15px 0; line-height: 1.6;">
+                        <li>✅ 15 mini-juegos diferentes</li>
+                        <li>✅ Sistema de recompensas</li>
+                        <li>✅ Modo multijugador colaborativo</li>
+                        <li>✅ Contenido alineado al currículum</li>
+                    </ul>
+                    <p><strong>Nivel:</strong> 2° - 4° Primaria | <strong>Costo:</strong> $2.99</p>
+                    <a href="#" class="resource-link">🔗 Descargar App</a>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-badge">Herramienta de Evaluación</div>
+                    <h3>📊 EvalúaLectura</h3>
+                    <p><strong>Justificación Pedagógica:</strong> Permite crear evaluaciones diagnósticas personalizadas y generar reportes detallados de comprensión lectora por estudiante.</p>
+                    <p><strong>Características:</strong></p>
+                    <ul style="margin: 15px 0; line-height: 1.6;">
+                        <li>✅ Banco de 500+ preguntas</li>
+                        <li>✅ Reportes automatizados</li>
+                        <li>✅ Identificación de áreas débiles</li>
+                        <li>✅ Sugerencias de intervención</li>
+                    </ul>
+                    <p><strong>Nivel:</strong> 1° - 6° Primaria | <strong>Costo:</strong> Plan educativo gratuito</p>
+                    <a href="#" class="resource-link">🔗 Crear Evaluación</a>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-badge">Biblioteca Digital</div>
+                    <h3>📖 CuentosInteractivos.mx</h3>
+                    <p><strong>Justificación Pedagógica:</strong> Biblioteca de cuentos con preguntas de inferencia integradas y soporte multimedia para facilitar la comprensión.</p>
+                    <p><strong>Características:</strong></p>
+                    <ul style="margin: 15px 0; line-height: 1.6;">
+                        <li>✅ 200+ cuentos interactivos</li>
+                        <li>✅ Audio profesional incluido</li>
+                        <li>✅ Preguntas de comprensión integradas</li>
+                        <li>✅ Filtros por edad y tema</li>
+                    </ul>
+                    <p><strong>Nivel:</strong> Preescolar - 6° Primaria | <strong>Costo:</strong> Freemium</p>
+                    <a href="#" class="resource-link">🔗 Explorar Biblioteca</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="conclusiones" class="section hidden">
+            <h2>💡 Conclusiones y Recomendaciones</h2>
+            
+            <div class="conclusions">
+                <h3>🎯 Estrategia de Implementación</h3>
+                <p style="margin: 15px 0; line-height: 1.8;">
+                    Basándose en el diagnóstico realizado, proponemos una implementación gradual de los recursos TIC seleccionados, 
+                    priorizando las áreas de mayor dificultad identificadas en nuestro análisis de datos.
+                </p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin: 30px 0;">
+                <div style="background: #e3f2fd; padding: 25px; border-radius: 15px; border-left: 5px solid #2196f3;">
+                    <h4>📅 Fase 1 (Semanas 1-2)</h4>
+                    <p><strong>Enfoque:</strong> Introducción a Comprension.org</p>
+                    <p>Implementar ejercicios básicos de inferencias para el 65% de estudiantes con dificultades identificadas.</p>
+                </div>
+                
+                <div style="background: #f3e5f5; padding: 25px; border-radius: 15px; border-left: 5px solid #9c27b0;">
+                    <h4>📅 Fase 2 (Semanas 3-4)</h4>
+                    <p><strong>Enfoque:</strong> Gamificación con LectoJuegos</p>
+                    <p>Incorporar vocabulario contextual mediante juegos colaborativos en el aula.</p>
+                </div>
+                
+                <div style="background: #e8f5e8; padding: 25px; border-radius: 15px; border-left: 5px solid #4caf50;">
+                    <h4>📅 Fase 3 (Semanas 5-6)</h4>
+                    <p><strong>Enfoque:</strong> Evaluación y Ajuste</p>
+                    <p>Usar EvalúaLectura para medir progreso y ajustar estrategias individualizadas.</p>
+                </div>
+            </div>
+
+            <div class="data-grid">
+                <div class="chart-container">
+                    <div class="chart-title">📈 Resultados Esperados</div>
+                    <div style="text-align: left;">
+                        <p><strong>Meta a 6 semanas:</strong></p>
+                        <ul style="margin: 15px 0; line-height: 1.8;">
+                            <li>🎯 Reducir estudiantes en nivel bajo del 65% al 45%</li>
+                            <li>🎯 Incrementar nivel medio del 25% al 35%</li>
+                            <li>🎯 Aumentar nivel alto del 10% al 20%</li>
+                            <li>🎯 Mejorar promedio general de 4.2 a 5.8</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <div class="chart-title">🏆 Indicadores de Éxito</div>
+                    <div style="text-align: left;">
+                        <p><strong>Métricas de seguimiento:</strong></p>
+                        <ul style="margin: 15px 0; line-height: 1.8;">
+                            <li>📊 Tiempo promedio en plataformas</li>
+                            <li>📊 Ejercicios completados por semana</li>
+                            <li>📊 Nivel de satisfacción estudiantil</li>
+                            <li>📊 Participación en actividades grupales</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #fff3e0, #ffeaa7); padding: 30px; border-radius: 20px; margin: 30px 0; border: 2px solid #ffb74d;">
+                <h3 style="color: #e65100; margin-bottom: 20px;">🚀 Reflexión del Proceso</h3>
+                <p style="line-height: 1.8; color: #bf360c;">
+                    Este proyecto nos ha permitido experimentar de primera mano cómo el análisis de datos educativos puede guiar 
+                    la selección estratégica de recursos TIC. La transición de la intuición a la evidencia representa un cambio 
+                    paradigmático en nuestra futura práctica docente, donde cada decisión pedagógica estará respaldada por datos 
+                    concretos y objetivos de aprendizaje claramente definidos.
+                </p>
+                <p style="line-height: 1.8; color: #bf360c; margin-top: 15px;">
+                    <strong>Competencias desarrolladas:</strong> Pensamiento crítico, competencia digital, curación de contenido, 
+                    toma de decisiones informada y trabajo colaborativo efectivo.
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Ocultar todas las secciones
+            const sections = document.querySelectorAll('.section:not(.header)');
+            sections.forEach(section => {
+                section.classList.add('hidden');
+            });
+            
+            // Mostrar la sección seleccionada
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.remove('hidden');
+                targetSection.classList.add('fade-in');
+            }
+            
+            // Actualizar botones de navegación
+            const buttons = document.querySelectorAll('.nav-button');
+            buttons.forEach(button => {
+                button.style.background = 'rgba(255, 255, 255, 0.9)';
+                button.style.color = '#2c3e50';
+            });
+            
+            // Resaltar botón activo
+            event.target.style.background = 'linear-gradient(45deg, #667eea, #764ba2)';
+            event.target.style.color = 'white';
+        }
+
+        // Mostrar la primera sección por defecto
+        document.addEventListener('DOMContentLoaded', function() {
+            showSection('datos');
+            
+            // Animar las barras de progreso
+            setTimeout(() => {
+                const progressBars = document.querySelectorAll('.progress-fill');
+                progressBars.forEach(bar => {
+                    const width = bar.style.width;
+                    bar.style.width = '0%';
+                    setTimeout(() => {
+                        bar.style.width = width;
+                    }, 100);
+                });
+            }, 500);
+        });
+    </script>
+</body>
+</html>
